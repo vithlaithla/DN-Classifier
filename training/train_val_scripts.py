@@ -19,14 +19,15 @@ def train_epoch(model, dl, criterion, optimizer, scheduler, device='cuda:0'):
     model.train() # putting model in training mode
     losses = [] # tracking running losses
     accuracies = [] # training running accuracy
+    print("changed")
 
     for x,y in dl:
         # Transferring batch to GPU
-        x = x.to(device=device)
-        y = y.to(device=device)
+        # x = x.to(device=device)
+        # y = y.to(device=device)
 
         optimizer.zero_grad()
-
+        # print(x.shape)
         out = model(x)
         bs_acc = accuracy(out, y) # Train accuracy for current batch
         loss = criterion(out, y) # Train loss for current batch
@@ -50,8 +51,8 @@ def valid_epoch(model, dl, criterion, device='cuda:0'):
 
     for x,y in dl:
         # Transferring batch to GPU
-        x = x.to(device=device)
-        y = y.to(device=device)
+        # x = x.to(device=device)
+        # y = y.to(device=device)
 
         # Using torch.no_grad() to prevent calculation of gradients hence saving memory as gradients are not required during validation phase
         with torch.no_grad():
